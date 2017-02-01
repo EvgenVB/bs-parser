@@ -1,0 +1,6 @@
+/.idea/
+cache
+!cache/.gitkeep
+!cache/images/.gitkeep
+/cordova/
+/node_modules/
