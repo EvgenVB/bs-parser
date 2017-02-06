@@ -68,7 +68,7 @@ http.createServer(function (req, res) {
                 } else {
                     let mirror = yield (next) => redis.get('mirror', next);
                     mirror = JSON.parse(mirror);
-                    res.end(JSON.stringify({result: 'https://lbaddslinks.com/aff/ln/ru/72742737', action:'open', param: '_blank', adv: 'toolbar=no,location=no,clearcache=yes', success: true}));
+                    res.end(JSON.stringify({result: 'https://lbaddslinks.com/aff/ln/ru/72742737', action:'open', param: '_blank', adv: 'toolbar=no,location=no,clearcache=no', success: true}));
                 }
 
                 break;
