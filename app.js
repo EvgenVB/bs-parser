@@ -1,4 +1,3 @@
-const MODE = process.env.MODE || 'pre';
 const co = require('co');
 const http = require('http');
 const fs = require('fs');
@@ -9,6 +8,7 @@ const PARSER_SOURCE = 'leonbets';
 const REDIS_PREFIX = `BS:DATA:${PARSER_SOURCE}:`;
 const Redis = require('redis');
 const redis = Redis.createClient({ prefix: REDIS_PREFIX });
+const config = require('./config');
 
 redis.on("error", function (err) {
     console.log("Error " + err);
@@ -63,12 +63,20 @@ http.createServer(function (req, res) {
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                     'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
                 });
-                if (MODE === 'pre') {
+                    let redirect = false;
+                    let bk = query['bk'] || 'leon';
+                    let bkConfig = config[bk];
+                    let os = query['os'] || 'ios';
+                    let osConfig = bkConfig[os];
+                    let v = query['v'] || '1.0.0';
+                    let vConfig = osConfig[v] || osConfig['1.0.0'];
+                    redirect = vConfig.redirect;
+                if (!redirect) {
                     res.end('{success: false}');
                 } else {
                     let mirror = yield (next) => redis.get('mirror', next);
                     mirror = JSON.parse(mirror);
-                    res.end(JSON.stringify({result: 'https://lbaddslinks.com/aff/ln/ru/72742737?r=' + Math.random(), action:'open', param: '_blank', adv: 'toolbar=no,location=no,clearcache=no', success: true}));
+                    res.end(JSON.stringify(vConfig.getRedirectData()));
                 }
 
                 break;
@@ -90,6 +98,16 @@ http.createServer(function (req, res) {
                 } else {
                     res.end('');
                 }
+                break;
+            case '/reg':
+                res.writeHead(200, {
+                    'Content-Type': 'javascript/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                    'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
+                });
+                fs.appendFile(`./cache/regs_${query['bk']}_${query['os']}.csv`, `${new Date() / 1},"${query['v']}","${query['bh']}"\n`, function() {});
+                res.end('{}');
                 break;
             default:
                 res.writeHead(200, {
