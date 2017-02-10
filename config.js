@@ -9,8 +9,8 @@ module.exports = {
             "1.0.0": {
                 redirect: true,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(link) {
-                        cb(null, getBaseRedirectData(link));
+                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
                     })
 
                 }
@@ -20,8 +20,8 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(link) {
-                        cb(null, getBaseRedirectData(link));
+                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
                     })
 
                 }
@@ -33,8 +33,8 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(link) {
-                        cb(null, getBaseRedirectData(link));
+                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
                     })
 
                 }
@@ -44,8 +44,8 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(link) {
-                        cb(null, getBaseRedirectData(link));
+                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
                     })
 
                 }
@@ -67,6 +67,7 @@ function getBaseRedirectData(url) {
 
 function getLeonOffshorePromoLink(sub, cb) {
     redis.get('mirror', function (err, data) {
+        console.log(data);
         let mirror = JSON.parse(data);
         cb(err, `https://${mirror.result}/?wm=${sub}`);
     });
