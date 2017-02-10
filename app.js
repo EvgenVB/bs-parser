@@ -74,9 +74,9 @@ http.createServer(function (req, res) {
                 if (!redirect) {
                     res.end('{success: false}');
                 } else {
-                    let mirror = yield (next) => redis.get('mirror', next);
-                    mirror = JSON.parse(mirror);
-                    res.end(JSON.stringify(vConfig.getRedirectData()));
+                    vConfig.getRedirectData(function (err, data) {
+                        res.end(JSON.stringify(data));
+                    });
                 }
 
                 break;

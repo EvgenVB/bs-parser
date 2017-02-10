@@ -1,18 +1,29 @@
+const PARSER_SOURCE = 'leonbets';
+const REDIS_PREFIX = `BS:DATA:${PARSER_SOURCE}:`;
+const Redis = require('redis');
+const redis = Redis.createClient({ prefix: REDIS_PREFIX });
+
 module.exports = {
     leon: {
         ios: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function() {
-                    return getBaseRedirectData(getLeonOffshorePromoLink('72742737'));
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72742737', function(link) {
+                        cb(null, getBaseRedirectData(link));
+                    })
+
                 }
             }
         },
         android: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function() {
-                    return getBaseRedirectData(getLeonOffshorePromoLink('72742737'));
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72742737', function(link) {
+                        cb(null, getBaseRedirectData(link));
+                    })
+
                 }
             }
         }
@@ -21,16 +32,22 @@ module.exports = {
         ios: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function() {
-                    return getBaseRedirectData(getLeonOffshorePromoLink('72742737'));
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72742737', function(link) {
+                        cb(null, getBaseRedirectData(link));
+                    })
+
                 }
             }
         },
         android: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function() {
-                    return getBaseRedirectData(getLeonOffshorePromoLink('72742737'));
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72742737', function(link) {
+                        cb(null, getBaseRedirectData(link));
+                    })
+
                 }
             }
         }
@@ -48,6 +65,9 @@ function getBaseRedirectData(url) {
     }
 }
 
-function getLeonOffshorePromoLink(sub) {
-    return `https://lbaddslinks.com/aff/ln/ru/${sub}?r=${Math.random()}`;
+function getLeonOffshorePromoLink(sub, cb) {
+    redis.get('mirror', function (err, data) {
+        let mirror = JSON.parse(data);
+        cb(err, `https://${mirror.result}/?wm=${sub}`);
+    });
 }
