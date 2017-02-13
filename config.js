@@ -66,6 +66,8 @@ function getBaseRedirectData(url) {
 }
 
 function getLeonOffshorePromoLink(sub, cb) {
+    cb(null, `https://lbaddslinks.com/aff/ln/ru/${sub}`);
+    return;
     redis.get('mirror', function (err, data) {
         console.log(data);
         let mirror = JSON.parse(data);
