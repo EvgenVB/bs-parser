@@ -42,9 +42,9 @@ module.exports = {
         },
         android: {
             "1.0.0": {
-                redirect: false,
+                redirect: true,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                    getLeonOffshorePromoLink('72753421', function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
