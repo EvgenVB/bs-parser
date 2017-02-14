@@ -51,6 +51,30 @@ module.exports = {
                 }
             }
         }
+    },
+    365: {
+        ios: {
+            "1.0.0": {
+                redirect: false,
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
+                    })
+
+                }
+            }
+        },
+        android: {
+            "1.0.0": {
+                redirect: false,
+                getRedirectData: function(cb) {
+                    getLeonOffshorePromoLink('72763823', function(err, link) {
+                        cb(err, getBaseRedirectData(link));
+                    })
+
+                }
+            }
+        }
     }
 };
 
