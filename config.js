@@ -31,7 +31,7 @@ module.exports = {
     wh: {
         ios: {
             "1.0.0": {
-                redirect: true,
+                redirect: false,
                 getRedirectData: function(cb) {
                     getLeonOffshorePromoLink('72753408', function(err, link) {
                         cb(err, getBaseRedirectData(link));
