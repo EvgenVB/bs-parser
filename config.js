@@ -105,7 +105,7 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    cb(null, 'http://start2wincash.com/?s=53&ref=wp_w19786p162_&url');                }
+                    cb(null, getBaseRedirectData('http://start2wincash.com/?s=53&ref=wp_w19786p162_&url'));                }
             }
         },
         android: {
