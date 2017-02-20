@@ -40,7 +40,7 @@ module.exports = {
                 }
             },
             "1.0.1": {
-                redirect: true,
+                redirect: false,
                 getRedirectData: function(cb) {
                     getLeonOffshorePromoLink('72753408', function(err, link) {
                         cb(err, getBaseRedirectData(link));
