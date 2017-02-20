@@ -66,7 +66,7 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                    getLeonOffshorePromoLink('72763823', function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -75,7 +75,7 @@ module.exports = {
         },
         android: {
             "1.0.0": {
-                redirect: false,
+                redirect: true,
                 getRedirectData: function(cb) {
                     getLeonOffshorePromoLink('72763823', function(err, link) {
                         cb(err, getBaseRedirectData(link));
@@ -90,7 +90,7 @@ module.exports = {
             "1.0.0": {
                 redirect: false,
                 getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                    getLeonOffshorePromoLink('72767299', function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -99,7 +99,7 @@ module.exports = {
         },
         android: {
             "1.0.0": {
-                redirect: false,
+                redirect: true,
                 getRedirectData: function(cb) {
                     getLeonOffshorePromoLink('72767299', function(err, link) {
                         cb(err, getBaseRedirectData(link));
