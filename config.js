@@ -51,7 +51,7 @@ module.exports = {
         },
         android: {
             "1.0.0": {
-                redirect: true,
+                redirect: false,
                 getRedirectData: function(cb) {
                     getLeonOffshorePromoLink('72753421', function(err, link) {
                         cb(err, getBaseRedirectData(link));
