@@ -141,7 +141,7 @@ function getBaseRedirectData(url) {
 }
 
 function getLeonOffshorePromoLink(sub, cb) {
-    cb(null, `https://lblandsslinks7.xyz/aff/ln/ru/${sub}`);
+    cb(null, `https://lbllandingslinksn4.xyz/aff/ln/ru/${sub}`);
     return;
     redis.get('mirror', function (err, data) {
         console.log(data);
