@@ -123,11 +123,26 @@ http.createServer(function (req, res) {
                     let v_ = query['v'] || '1.0.0';
 
                 if (!scriptsCache.hasOwnProperty(bk_ + '_' + os_ + '_' + v_)) {
-                    let file = yield (next) => fs.readFile(`./cordova/${bk_}/${os_}/${v_}.js`, next);
-                    scriptsCache[bk_ + '_' + os_ + '_' + v_] = file;
-                }
 
-                res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
+                    fs.access(`./cordova/${bk_}`, fs.constants.F_OK, (err) => {
+                        if (err) bk_ = 'leon';
+                        fs.access(`./cordova/${bk_}/script/${os_}`, fs.constants.F_OK, (err) => {
+                            if (err) os_ = 'ios';
+                            fs.access(`./cordova/${bk_}/script/${os_}/${v_}.js`, fs.constants.F_OK, (err) => {
+                                if (err) v_ = '1.0.0';
+                                try {
+                                    let file = yield (next) => fs.readFile(`./cordova/${bk_}/script/${os_}/${v_}.js`, next);
+                                    scriptsCache[bk_ + '_' + os_ + '_' + v_] = file;
+                                    res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
+                                } catch (e) {
+                                    return res.end('');
+                                }
+                            });
+                        });
+                    });
+                } else {
+                    res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
+                }
                 break;
             case '/reg':
                 res.writeHead(200, {
