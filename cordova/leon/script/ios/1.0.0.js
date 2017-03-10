@@ -5,6 +5,7 @@ var ACTION_RESULT;
 var INITIAL_LOAD_SEQUENCE_FINISHED = false;
 var BASE_URL;
 var BASE_HOST;
+var VENDETTA = 'leon';
 
 function init(domain) {
     HOST = domain;
@@ -161,7 +162,7 @@ function getArticle(id, cb) {
 }
 
 function getData(cb) {
-    $.getJSON(`${HOST}/data`, function(data){
+    $.getJSON(`${HOST}/data?bk=${VENDETTA}&os=${cordova.platformId || 'ios'}&v=${AppVersion.version || '1.0.0'}`, function(data){
         cb(data);
     })
 }
