@@ -85,7 +85,7 @@ http.createServer(function (req, res) {
                     }
 
                     let ua = req.headers['user-agent'];
-                    console.log(ip, '|', ua);
+                    console.log(new Date(), '|', ip, '|', ua);
                     vConfig.getRedirectData(ip, ua, function (err, data) {
                         res.end(JSON.stringify(data));
                     });
