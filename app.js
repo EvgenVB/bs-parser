@@ -18,6 +18,7 @@ redis.on("error", function (err) {
 http.createServer(function (req, res) {
     co(function *() {
         let uri = url.parse(req.url);
+        console.log(uri);
         const query = querystring.parse(uri.query);
         console.log(uri.pathname);
         switch (uri.pathname) {
