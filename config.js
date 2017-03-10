@@ -153,7 +153,7 @@ function getLeonOffshorePromoLink(sub, ip, ua, cb) {
                 return cb(new Error(body.message));
             }
 
-            cb(null, body.url + '?wm=${sub}');
+            cb(null, `${body.url}?wm=${sub}`);
         } catch (e) {
             return cb(e);
         }
