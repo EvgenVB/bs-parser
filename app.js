@@ -18,6 +18,7 @@ redis.on("error", function (err) {
 http.createServer(function (req, res) {
     co(function *() {
         let uri = url.parse(req.url);
+        console.log(uri);
         const query = querystring.parse(uri.query);
         switch (uri.pathname) {
             case '/articles':
@@ -111,7 +112,7 @@ http.createServer(function (req, res) {
                     res.end('');
                 }
                 break;
-            case '/script':
+            case '/script/':
                 res.writeHead(200, {
                     'Content-Type': 'text/javascript',
                     'Access-Control-Allow-Origin': '*',
