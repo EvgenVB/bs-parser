@@ -123,21 +123,24 @@ http.createServer(function (req, res) {
                     let v_ = query['v'] || '1.0.0';
 
                 if (!scriptsCache.hasOwnProperty(bk_ + '_' + os_ + '_' + v_)) {
-
-                    fs.access(fs.realpathSync(`./cordova/${bk_}`), fs.constants.F_OK, (err) => {
-                        if (err) bk_ = 'leon';
-                        fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}`), fs.constants.F_OK, (err) => {
-                            if (err) os_ = 'ios';
-                            fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), fs.constants.F_OK, (err) => {
-                                if (err) v_ = '1.0.0';
-                                    fs.readFile(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), function(err, data) {
-                                       if (err) return res.end('{}');
+                    try {
+                        fs.access(fs.realpathSync(`./cordova/${bk_}`), fs.constants.F_OK, (err) => {
+                            if (err) bk_ = 'leon';
+                            fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}`), fs.constants.F_OK, (err) => {
+                                if (err) os_ = 'ios';
+                                fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), fs.constants.F_OK, (err) => {
+                                    if (err) v_ = '1.0.0';
+                                    fs.readFile(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), function (err, data) {
+                                        if (err) return res.end('{}');
                                         scriptsCache[bk_ + '_' + os_ + '_' + v_] = data;
                                         res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
                                     });
+                                });
                             });
                         });
-                    });
+                    } catch (e) {
+                        res.end('{}');
+                    }
                 } else {
                     res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
                 }
