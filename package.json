@@ -13,6 +13,7 @@
     "jsdom": "^9.8.3",
     "node-rest-client": "^2.0.1",
     "pm2": "^2.1.6",
-    "redis": "^2.6.5"
+    "redis": "^2.6.5",
+    "request": "latest"
   }
 }

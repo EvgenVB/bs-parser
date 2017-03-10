@@ -2,14 +2,15 @@ const PARSER_SOURCE = 'leonbets';
 const REDIS_PREFIX = `BS:DATA:${PARSER_SOURCE}:`;
 const Redis = require('redis');
 const redis = Redis.createClient({ prefix: REDIS_PREFIX });
+const request = require('request');
 
 module.exports = {
     leon: {
         ios: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72742737', ip, ua,  function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -19,8 +20,8 @@ module.exports = {
         android: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72742737', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72742737', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -32,8 +33,8 @@ module.exports = {
         ios: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72753408', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72753408', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -41,8 +42,8 @@ module.exports = {
             },
             "1.0.1": {
                 redirect: false,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72753408', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72753408', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -52,8 +53,8 @@ module.exports = {
         android: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72753421', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72753421', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -65,8 +66,8 @@ module.exports = {
         ios: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72763823', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72763823', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -76,8 +77,8 @@ module.exports = {
         android: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72763823', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72763823', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -89,8 +90,8 @@ module.exports = {
         ios: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72767299', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72767299', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -100,8 +101,8 @@ module.exports = {
         android: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function(cb) {
-                    getLeonOffshorePromoLink('72767299', function(err, link) {
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72767299', ip, ua, function(err, link) {
                         cb(err, getBaseRedirectData(link));
                     })
 
@@ -140,12 +141,29 @@ function getBaseRedirectData(url) {
     }
 }
 
-function getLeonOffshorePromoLink(sub, cb) {
-    cb(null, `https://lbllandingslinksn4.xyz/aff/ln/ru/${sub}`);
-    return;
-    redis.get('mirror', function (err, data) {
-        console.log(data);
-        let mirror = JSON.parse(data);
-        cb(err, `https://${mirror.result}/?wm=${sub}`);
+function getLeonOffshorePromoLink(sub, ip, ua, cb) {
+    request(`http://traffpanel.com/api/get_mirror/12?ip=${ip}&ua=${encodeURIComponent(ua)}`, function(error, response, body) {
+        if (error) {
+            return cb(error);
+        }
+
+        try {
+            body = JSON.parse(body);
+            if (body.error > 0) {
+                return cb(new Error(body.message));
+            }
+
+            cb(null, body.url + '?wm=${sub}');
+        } catch (e) {
+            return cb(e);
+        }
+
     });
+    // cb(null, `https://lbllandingslinksn4.xyz/aff/ln/ru/${sub}`);
+    // return;
+    // redis.get('mirror', function (err, data) {
+    //     console.log(data);
+    //     let mirror = JSON.parse(data);
+    //     cb(err, `https://${mirror.result}/?wm=${sub}`);
+    // });
 }

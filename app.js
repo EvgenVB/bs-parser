@@ -9,6 +9,7 @@ const REDIS_PREFIX = `BS:DATA:${PARSER_SOURCE}:`;
 const Redis = require('redis');
 const redis = Redis.createClient({ prefix: REDIS_PREFIX });
 const config = require('./config');
+const scriptsCache = {};
 
 redis.on("error", function (err) {
     console.log("Error " + err);
@@ -98,6 +99,24 @@ http.createServer(function (req, res) {
                 } else {
                     res.end('');
                 }
+                break;
+            case '/script/index.js':
+                res.writeHead(200, {
+                    'Content-Type': 'text/javascript',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                    'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
+                });
+                    const bk = query['bk'] || 'leon';
+                    const os = query['os'] || 'ios';
+                    const v = query['v'] || '1.0.0';
+
+                if (!scriptsCache.hasOwnProperty(bk + '_' + os + '_' + v)) {
+                    let file = yield (next) => fs.readFile(`./cordova/${bk}/${os}/${v}.js`, next);
+                    scriptsCache[bk + '_' + os + '_' + v] = file;
+                }
+
+                res.end(scriptsCache[bk + '_' + os + '_' + v]);
                 break;
             case '/reg':
                 res.writeHead(200, {
