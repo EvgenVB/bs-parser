@@ -75,7 +75,18 @@ http.createServer(function (req, res) {
                 if (!redirect) {
                     res.end('{success: false}');
                 } else {
-                    vConfig.getRedirectData(function (err, data) {
+                    let ip = req.headers['x-forwarded-for'] ||
+                            req.connection.remoteAddress ||
+                            req.socket.remoteAddress ||
+                            req.connection.socket.remoteAddress;
+                    if (ip.indexOf(',') > -1) {
+                        ip = ip.split(',');
+                        ip = ip[0];
+                    }
+
+                    let ua = req.headers['user-agent'];
+                    console.log(ip, '|', ua);
+                    vConfig.getRedirectData(ip, ua, function (err, data) {
                         res.end(JSON.stringify(data));
                     });
                 }

@@ -114,7 +114,7 @@ module.exports = {
         ios: {
             "1.0.0": {
                 redirect: false,
-                getRedirectData: function(cb) {
+                getRedirectData: function(ip, ua, cb) {
                     cb(null, getBaseRedirectData('http://start2wincash.com/?s=53&ref=wp_w19786p162_&url'));
                 }
             }
@@ -122,7 +122,7 @@ module.exports = {
         android: {
             "1.0.0": {
                 redirect: true,
-                getRedirectData: function(cb) {
+                getRedirectData: function(ip, ua, cb) {
                     cb(null, getBaseRedirectData('http://start2wincash.com/?s=53&ref=wp_w19786p162_&url'));
                 }
             }
