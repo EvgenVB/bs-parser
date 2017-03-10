@@ -130,13 +130,11 @@ http.createServer(function (req, res) {
                             if (err) os_ = 'ios';
                             fs.access(`./cordova/${bk_}/script/${os_}/${v_}.js`, fs.constants.F_OK, (err) => {
                                 if (err) v_ = '1.0.0';
-                                try {
-                                    let file = yield (next) => fs.readFile(`./cordova/${bk_}/script/${os_}/${v_}.js`, next);
-                                    scriptsCache[bk_ + '_' + os_ + '_' + v_] = file;
-                                    res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
-                                } catch (e) {
-                                    return res.end('');
-                                }
+                                    fs.readFile(`./cordova/${bk_}/script/${os_}/${v_}.js`, function(err, data) {
+                                       if (err) return res.end('{}');
+                                        scriptsCache[bk_ + '_' + os_ + '_' + v_] = data;
+                                        res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
+                                    });
                             });
                         });
                     });
