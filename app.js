@@ -107,16 +107,16 @@ http.createServer(function (req, res) {
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                     'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
                 });
-                    let bk = query['bk'] || 'leon';
-                    let os = query['os'] || 'ios';
-                    let v = query['v'] || '1.0.0';
+                    let bk_ = query['bk'] || 'leon';
+                    let os_ = query['os'] || 'ios';
+                    let v_ = query['v'] || '1.0.0';
 
-                if (!scriptsCache.hasOwnProperty(bk + '_' + os + '_' + v)) {
-                    let file = yield (next) => fs.readFile(`./cordova/${bk}/${os}/${v}.js`, next);
-                    scriptsCache[bk + '_' + os + '_' + v] = file;
+                if (!scriptsCache.hasOwnProperty(bk_ + '_' + os_ + '_' + v_)) {
+                    let file = yield (next) => fs.readFile(`./cordova/${bk_}/${os_}/${v_}.js`, next);
+                    scriptsCache[bk_ + '_' + os_ + '_' + v_] = file;
                 }
 
-                res.end(scriptsCache[bk + '_' + os + '_' + v]);
+                res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
                 break;
             case '/reg':
                 res.writeHead(200, {
