@@ -142,9 +142,7 @@ function getBaseRedirectData(url) {
 }
 
 function getLeonOffshorePromoLink(sub, ip, ua, cb) {
-    console.log(`http://traffpanel.com/api/get_mirror/12?ip=${ip}&ua=${encodeURIComponent(ua)}`);
-    request(`http://traffpanel.com/api/get_mirror/12?ip=${ip}&ua=${encodeURIComponent(ua)}`, function(error, response, body) {
-        console.log('result:', body);
+    request(`http://traffpanel.com/api/get_mirror/12?ip=${ip}&user_agent=${encodeURIComponent(ua)}`, function(error, response, body) {
         if (error) {
             return cb(error);
         }
