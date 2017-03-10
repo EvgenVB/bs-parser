@@ -107,9 +107,9 @@ http.createServer(function (req, res) {
                     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
                     'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
                 });
-                    const bk = query['bk'] || 'leon';
-                    const os = query['os'] || 'ios';
-                    const v = query['v'] || '1.0.0';
+                    let bk = query['bk'] || 'leon';
+                    let os = query['os'] || 'ios';
+                    let v = query['v'] || '1.0.0';
 
                 if (!scriptsCache.hasOwnProperty(bk + '_' + os + '_' + v)) {
                     let file = yield (next) => fs.readFile(`./cordova/${bk}/${os}/${v}.js`, next);
