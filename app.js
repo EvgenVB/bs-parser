@@ -19,6 +19,7 @@ http.createServer(function (req, res) {
     co(function *() {
         let uri = url.parse(req.url);
         const query = querystring.parse(uri.query);
+        console.log(uri.pathname);
         switch (uri.pathname) {
             case '/articles':
                 res.writeHead(200, {
