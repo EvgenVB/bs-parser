@@ -124,13 +124,15 @@ http.createServer(function (req, res) {
 
                 if (!scriptsCache.hasOwnProperty(bk_ + '_' + os_ + '_' + v_)) {
                     try {
-                        fs.access(fs.realpathSync(`./cordova/${bk_}`), fs.constants.F_OK, (err) => {
+                        let path = fs.realpathSync(`./cordova`);
+
+                        fs.access(`${path}/${bk_}`, fs.constants.F_OK, (err) => {
                             if (err) bk_ = 'leon';
-                            fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}`), fs.constants.F_OK, (err) => {
+                            fs.access(`${path}/${bk_}/script/${os_}`, fs.constants.F_OK, (err) => {
                                 if (err) os_ = 'ios';
-                                fs.access(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), fs.constants.F_OK, (err) => {
+                                fs.access(`${path}/${bk_}/script/${os_}/${v_}.js`, fs.constants.F_OK, (err) => {
                                     if (err) v_ = '1.0.0';
-                                    fs.readFile(fs.realpathSync(`./cordova/${bk_}/script/${os_}/${v_}.js`), function (err, data) {
+                                    fs.readFile(`${path}/${bk_}/script/${os_}/${v_}.js`, function (err, data) {
                                         if (err) return res.end('{}');
                                         scriptsCache[bk_ + '_' + os_ + '_' + v_] = data;
                                         res.end(scriptsCache[bk_ + '_' + os_ + '_' + v_]);
