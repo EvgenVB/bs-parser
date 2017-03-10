@@ -3,4 +3,5 @@ cache
 !cache/.gitkeep
 !cache/images/.gitkeep
 /cordova/
+!/cordova/leon/script/*
 /node_modules/
