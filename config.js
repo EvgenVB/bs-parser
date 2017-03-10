@@ -8,7 +8,7 @@ module.exports = {
     leon: {
         ios: {
             "1.0.0": {
-                redirect: true,
+                redirect: false,
                 getRedirectData: function(ip, ua, cb) {
                     getLeonOffshorePromoLink('72742737', ip, ua,  function(err, link) {
                         cb(err, getBaseRedirectData(link));
