@@ -111,7 +111,7 @@ http.createServer(function (req, res) {
                     res.end('');
                 }
                 break;
-            case '/script/index.js':
+            case '/script/':
                 res.writeHead(200, {
                     'Content-Type': 'text/javascript',
                     'Access-Control-Allow-Origin': '*',
