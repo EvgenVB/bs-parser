@@ -14,7 +14,7 @@ var backButtonStyles = {
 
 var knownHosts = [
     { host: /http:\/\/[a-zA-Z0-9-.]+gameassists\.co\.uk.*/gi , style: 'absolute-small', args: [0, 0] },
-    { host: /https:\/\/[a-zA-Z0-9-.]+betsoftgaming\.com.*/gi , style: 'absolute-small', args: ['90%', 0] }
+    { host: /https:\/\/[a-zA-Z0-9-.]+betsoftgaming\.com.*/gi , style: 'absolute-small', args: ['90%', 0] },
     { host: /https:\/\/[a-zA-Z0-9-.]+casinomodule\.com.*/gi , style: 'absolute-small', args: [0, 0] }
 ];
 
