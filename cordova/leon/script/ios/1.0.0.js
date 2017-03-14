@@ -7,6 +7,24 @@ var BASE_URL;
 var BASE_HOST;
 var VENDETTA = 'leon';
 
+var backButtonStyles = {
+    "absolute-small": (top, left) => `top: ${top}; left: ${left}; height: 35px; min-height: 35px; line-height: 35px; width: 100px; border: 0px; background-color: rgba(50, 56, 62, 0.2); font-size: 12px; vertical-align: middle; padding-left: 20px; position: absolute; z-index: 10000`,
+    "full-size": () => "height: 35px; min-height: 35px; line-height: 35px; width: 100%; border: 0px; background-color: rgb(50, 56, 62); font-size: 14px; vertical-align: middle; padding-left: 20px; position: relative;"
+};
+
+var knownHosts = [
+    { host: /http:\/\/[a-zA-Z0-9.]+gameassists\.co\.uk.*/gi , style: 'absolute-small', args: [0, 0] }
+];
+
+function getButtonStyle() {
+    let knownHost = knownHosts.filter(kh => kh.host.test(LAST_LOADED_URL));
+    if (knownHost.length > 0) {
+        return backButtonStyles[knownHost[0].style].apply(this, knownHost[0].args);
+    } else {
+        return backButtonStyles["full-size"]();
+    }
+}
+
 function init(domain) {
     HOST = domain;
     $('#article-container').hide();
@@ -38,6 +56,7 @@ var RETURN_URL;
 var MENU_MODE = false;
 
 function checkLoaded(data) {
+    LAST_LOADED_URL = data.url;
     if (!INITIAL_LOAD_SEQUENCE_FINISHED) {
         loadTimeout = setTimeout(function () {
             INITIAL_LOAD_SEQUENCE_FINISHED = true;
@@ -51,7 +70,6 @@ function checkLoaded(data) {
             RETURN_URL = data.url;
         }
     }
-    LAST_LOADED_URL = data.url;
 }
 
 function fixLoaded(data) {
@@ -68,6 +86,7 @@ function fixLoaded(data) {
             }
             MENU_MODE = true;
         } else {
+            RETURN_URL = data.url;
             MENU_MODE = false;
         }
     }
@@ -84,20 +103,11 @@ function _compareHosts(host1, host2, deep) {
 function showCloseMenu() {
     var codeLines = [
             'var e=document.createElement("DIV")',
-            'e.style.height="35px"',
-            'e.style.minHeight="35px"',
-            'e.style.lineHeight="35px"',
-            'e.style.width="100%"',
-            'e.style.width="100%"',
-            'e.style.border=0',
-            'e.style.background="#32383e"',
-            'e.style.fontSize="14px"',
-            'e.style.verticalAlign="middle"',
-            'e.style.paddingLeft="20px"',
-            'e.style.position="relative"',
+            'e.setAttribute("style", "'+getButtonStyle()+'")',
             'var a=document.createElement("A")',
             'a.style.fontFamily="Helvetica, Arial"',
             'a.style.color="#a5a7a9"',
+            'a.style.textDecoration="none"',
             'a.innerText="< назад"',
             'a.href=decodeURIComponent("'+ encodeURIComponent(RETURN_URL) +'")',
             'e.appendChild(a)',
