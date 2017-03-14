@@ -106,7 +106,7 @@ function showCloseMenu() {
     var codeLines = [
             'var e=document.createElement("DIV")',
             'e.setAttribute("style", "'+getButtonStyle()+'")',
-            'e.onclick = function() {window.location.href="'+encodeURIComponent(RETURN_URL)+'"}',
+            'e.addEventListener(\'click\', function() {window.location.href="'+encodeURIComponent(RETURN_URL)+'"})',
             'var a=document.createElement("A")',
             'a.style.fontFamily="Helvetica, Arial"',
             'a.style.color="#a5a7a9"',
