@@ -104,16 +104,9 @@ function _compareHosts(host1, host2, deep) {
 
 function showCloseMenu() {
     var codeLines = [
-            'var e=document.createElement("DIV")',
+            'var e=document.createElement("div")',
             'e.setAttribute("style", "'+getButtonStyle()+'")',
-            'e.addEventListener(\'click\', function() {window.location.href="'+encodeURIComponent(RETURN_URL)+'"})',
-            'var a=document.createElement("A")',
-            'a.style.fontFamily="Helvetica, Arial"',
-            'a.style.color="#a5a7a9"',
-            'a.style.textDecoration="none"',
-            'a.innerText="< назад"',
-            'a.href=decodeURIComponent("'+ encodeURIComponent(RETURN_URL) +'")',
-            'e.appendChild(a)',
+            'e.innerHTML="'+'<a href="'+ RETURN_URL +'" style="font-family: Helvetica, Arial; color: #a5a7a9; text-decoration: none">< назад</a>'+'"',
             'document.body.insertBefore(e,document.body.firstChild)'
     ];
 
