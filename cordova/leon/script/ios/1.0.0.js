@@ -106,7 +106,7 @@ function showCloseMenu() {
     var codeLines = [
             'var e=document.createElement("div")',
             'e.setAttribute("style", "'+getButtonStyle()+'")',
-            'e.innerHTML="'+'<a href=\\"'+ RETURN_URL +'\\" style=\\"font-family: Helvetica, Arial; color: #a5a7a9; text-decoration: none\\">< назад</a>'+'"',
+            'e.innerHTML=\''+'<a href="'+ RETURN_URL +'" style="font-family: Helvetica, Arial; color: #a5a7a9; text-decoration: none">< назад</a>'+'\'',
             'document.body.insertBefore(e,document.body.firstChild)'
     ];
 
