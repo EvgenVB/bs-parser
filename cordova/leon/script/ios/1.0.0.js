@@ -111,7 +111,7 @@ function showCloseMenu() {
             'a.style.color="#a5a7a9"',
             'a.style.textDecoration="none"',
             'a.innerText="< назад"',
-            'a.href=decodeURIComponent("'+ encodeURIComponent(RETURN_URL) +'")',
+            'a.href="'+ RETURN_URL +'"',
             'e.appendChild(a)',
             'document.body.insertBefore(e,document.body.firstChild)'
     ];
