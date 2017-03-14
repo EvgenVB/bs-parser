@@ -88,7 +88,7 @@ function fixLoaded(data) {
             }
             MENU_MODE = true;
         } else {
-            RETURN_URL = data.url;
+            if (data.url.indexOf('startGame') === -1) RETURN_URL = data.url;
             MENU_MODE = false;
         }
     }
@@ -106,12 +106,13 @@ function showCloseMenu() {
     var codeLines = [
             'var e=document.createElement("DIV")',
             'e.setAttribute("style", "'+getButtonStyle()+'")',
+            'e.onclick = function() {window.location.href="'+encodeURIComponent(RETURN_URL)+'"}',
             'var a=document.createElement("A")',
             'a.style.fontFamily="Helvetica, Arial"',
             'a.style.color="#a5a7a9"',
             'a.style.textDecoration="none"',
             'a.innerText="< назад"',
-            'a.href="'+ RETURN_URL +'"',
+            'a.href=decodeURIComponent("'+ encodeURIComponent(RETURN_URL) +'")',
             'e.appendChild(a)',
             'document.body.insertBefore(e,document.body.firstChild)'
     ];
