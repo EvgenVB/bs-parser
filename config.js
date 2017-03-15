@@ -24,6 +24,15 @@ module.exports = {
                     })
 
                 }
+            },
+            "1.0.4": {
+                redirect: false,
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72742737', ip, ua,  function(err, link) {
+                        cb(err, getBaseRedirectData(link));
+                    })
+
+                }
             }
         },
         android: {
