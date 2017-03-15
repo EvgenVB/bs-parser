@@ -19,7 +19,7 @@ var knownHosts = [
 ];
 
 function getButtonStyle() {
-    let knownHost = knownHosts.filter(kh => kh.host.test(LAST_LOADED_URL));
+    var knownHost = knownHosts.filter(kh => kh.host.test(LAST_LOADED_URL));
     if (knownHost.length > 0) {
         return backButtonStyles[knownHost[0].style].apply(this, knownHost[0].args);
     } else {
