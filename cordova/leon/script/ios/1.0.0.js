@@ -19,7 +19,7 @@ var knownHosts = [
 ];
 
 function getButtonStyle() {
-    var knownHost = knownHosts.filter(kh => kh.host.test(LAST_LOADED_URL));
+    var knownHost = knownHosts.filter(function (kh) { return kh.host.test(LAST_LOADED_URL); });
     if (knownHost.length > 0) {
         return backButtonStyles[knownHost[0].style].apply(this, knownHost[0].args);
     } else {
@@ -190,7 +190,7 @@ function renderArticle(article) {
             '            <div class="o-grid__cell o-grid__cell--width-40 u-centered">'+
             '            </div>'+
             '            <div class="o-grid__cell o-grid__cell--width-60">'+
-            '                <h3 class="c-heading c-heading--medium">' + article.photoDesc + '</h3>' + (() => {
+            '                <h3 class="c-heading c-heading--medium">' + article.photoDesc + '</h3>' + (function(article) {
                 if (article.odds && article.odds.length > 0) {
                     return '<p class="c-paragraph">'+
                             '<h4 class="c-heading c-heading--medium">'+
