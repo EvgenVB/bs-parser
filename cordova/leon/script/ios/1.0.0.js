@@ -8,7 +8,7 @@ var BASE_HOST;
 var VENDETTA = 'leon';
 
 var backButtonStyles = {
-    "absolute-small": (top, left) => `top: ${top}; left: ${left}; height: 35px; min-height: 35px; line-height: 35px; width: 100px; border: 0px; background-color: rgba(50, 56, 62, 0.2); font-size: 12px; vertical-align: middle; padding-left: 20px; position: absolute; z-index: 10000`,
+    "absolute-small": (top, left) => 'top: ' + top + '; left: ' + left + '; height: 35px; min-height: 35px; line-height: 35px; width: 100px; border: 0px; background-color: rgba(50, 56, 62, 0.2); font-size: 12px; vertical-align: middle; padding-left: 20px; position: absolute; z-index: 10000',
     "full-size": () => "height: 35px; min-height: 35px; line-height: 35px; width: 100%; border: 0px; background-color: rgb(50, 56, 62); font-size: 14px; vertical-align: middle; padding-left: 20px; position: relative;"
 };
 
@@ -156,19 +156,19 @@ function switchArticle() {
 }
 
 function getArticles(cb) {
-    $.getJSON(`${HOST}/articles?skip=${SKIP}`, function(data){
+    $.getJSON(HOST + '/articles?skip=' + SKIP, function(data){
         cb(data);
     })
 }
 
 function getArticle(id, cb) {
-    $.getJSON(`${HOST}/article?id=${id}`, function(data){
+    $.getJSON(HOST + '/article?id=' + id, function(data){
         cb(data);
     })
 }
 
 function getData(cb) {
-    $.getJSON(`${HOST}/data?bk=${VENDETTA}&os=${cordova.platformId || 'ios'}&v=${AppVersion.version || '1.0.0'}`, function(data){
+    $.getJSON(HOST + '/data?bk=' + VENDETTA + '&os=' + (cordova.platformId ? cordova.platformId:'ios') + '&v=' + (AppVersion.version?AppVersion.version:'1.0.0'), function(data){
         cb(data);
     })
 }
@@ -176,45 +176,34 @@ function getData(cb) {
 function toJSONLocal (date) {
     var local = new Date(date);
     local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return `${local.toJSON().slice(0, 10)} ${local.toJSON().slice(11, 16)}`;
+    return local.toJSON().slice(0, 10) + ' ' + local.toJSON().slice(11, 16);
 }
 
 function renderArticleText(article) {
-    return `
-<button class="c-button u-small" onClick="javascript: switchArticle();">Закрыть</button>
-${article.result.articleHTML}
-<button class="c-button u-small" onClick="javascript: switchArticle();">Закрыть</button>
-`;
+    return '<button class="c-button u-small" onClick="javascript: switchArticle();">Закрыть</button>' + article.result.articleHTML + '<button class="c-button u-small" onClick="javascript: switchArticle();">Закрыть</button>';
 }
 
 function renderArticle(article) {
     var date = new Date(article.date || new Date() / 1) ;
-    return `<section class="u-letter-box--super">
-        <div class="o-grid o-grid--xsmall-full o-grid--small-full o-grid--medium-full">
-            <div class="o-grid__cell o-grid__cell--width-40 u-centered">
-                <img class="o-image" src="${HOST}/images/?id=${article.id}">
-            </div>
-            <div class="o-grid__cell o-grid__cell--width-60">
-                <h3 class="c-heading c-heading--medium">
-                    ${article.photoDesc}
-                </h3>
-                                    ${(() => {
-        if (article.odds && article.odds.length > 0) {
-            return `<p class="c-paragraph">
-                <h4 class="c-heading c-heading--medium">
-                    Матч: ${article.oddsTitle}
-                    <span class="c-heading__sub">${toJSONLocal(date)}</span>
-                </h4>
-                    Коэфф. на ставки: ${article.odds.join('&nbsp;&nbsp;')}
-                </p>`
-        } else { return '';}})(article)}
-                <p class="c-paragraph">
-                    ${article.previewText}
-                    <button class="c-button c-button--block u-small" onClick="javascript: openArticle('${article.id}');">Читать далее...</button>
-                </p>
-            </div>
-        </div>
-    </section>`
+    return '<section class="u-letter-box--super">'+
+            '        <div class="o-grid o-grid--xsmall-full o-grid--small-full o-grid--medium-full">'+
+            '            <div class="o-grid__cell o-grid__cell--width-40 u-centered">'+
+            '            </div>'+
+            '            <div class="o-grid__cell o-grid__cell--width-60">'+
+            '                <h3 class="c-heading c-heading--medium">' + article.photoDesc + '</h3>' + (() => {
+                if (article.odds && article.odds.length > 0) {
+                    return '<p class="c-paragraph">'+
+                            '<h4 class="c-heading c-heading--medium">'+
+                            'Матч: ' + article.oddsTitle +
+                            '<span class="c-heading__sub">' + toJSONLocal(date) + '</span>' +
+                            '</h4>' +
+                            'Коэфф. на ставки: ' + article.odds.join('&nbsp;&nbsp;') +
+                            '</p>'
+                } else { return '';}})(article) + '<p class="c-paragraph">' + article.previewText + '<button class="c-button c-button--block u-small" onClick="javascript: openArticle(\'' + article.id + '\');">Читать далее...</button>'+
+            '                </p>'+
+            '            </div>'+
+            '        </div>'+
+            '    </section>'
 }
 
 function _getLocation(url) {
