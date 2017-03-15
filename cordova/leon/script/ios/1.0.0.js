@@ -8,8 +8,8 @@ var BASE_HOST;
 var VENDETTA = 'leon';
 
 var backButtonStyles = {
-    "absolute-small": (top, left) => 'top: ' + top + '; left: ' + left + '; height: 35px; min-height: 35px; line-height: 35px; width: 100px; border: 0px; background-color: rgba(50, 56, 62, 0.2); font-size: 12px; vertical-align: middle; padding-left: 20px; position: absolute; z-index: 10000',
-    "full-size": () => "height: 35px; min-height: 35px; line-height: 35px; width: 100%; border: 0px; background-color: rgb(50, 56, 62); font-size: 14px; vertical-align: middle; padding-left: 20px; position: relative;"
+    "absolute-small": function (top, left) { return 'top: ' + top + '; left: ' + left + '; height: 35px; min-height: 35px; line-height: 35px; width: 100px; border: 0px; background-color: rgba(50, 56, 62, 0.2); font-size: 12px; vertical-align: middle; padding-left: 20px; position: absolute; z-index: 10000';},
+    "full-size": function() { return "height: 35px; min-height: 35px; line-height: 35px; width: 100%; border: 0px; background-color: rgb(50, 56, 62); font-size: 14px; vertical-align: middle; padding-left: 20px; position: relative;"; }
 };
 
 var knownHosts = [
