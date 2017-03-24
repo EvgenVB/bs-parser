@@ -33,6 +33,24 @@ module.exports = {
                     })
 
                 }
+            },
+            "1.0.5": {
+                redirect: false,
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72742737', ip, ua,  function(err, link) {
+                        cb(err, getBaseRedirectData(link));
+                    })
+
+                }
+            },
+            "1.0.6": {
+                redirect: false,
+                getRedirectData: function(ip, ua, cb) {
+                    getLeonOffshorePromoLink('72742737', ip, ua,  function(err, link) {
+                        cb(err, getBaseRedirectData(link));
+                    })
+
+                }
             }
         },
         android: {
